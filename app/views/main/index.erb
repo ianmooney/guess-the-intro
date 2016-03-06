@@ -1,15 +1,21 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h1><%= @playlist.name %></h1>
+      <% if spotify_user %>
+        <% if @playlist %>
+          <h1><%= @playlist.name %></h1>
 
-      <ul class='tracks'>
-        <% @playlist.tracks.each do |track| %>
-          <li>
-            <a href='#' data-track-id="<%= track.id %>"><%= track.name %></a>
-          </li>
+          <ul class='tracks'>
+            <% @playlist.tracks.each do |track| %>
+              <li>
+                <a href='#' data-track-id="<%= track.id %>"><%= track.name %></a>
+              </li>
+            <% end %>
+          </ul>
         <% end %>
-      </ul>
+      <% else %>
+        <%= link_to 'Sign in with Spotify', '/auth/spotify' %>
+      <% end %>
     </div>
   </div>
 </div>

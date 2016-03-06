@@ -1,5 +1,9 @@
 class MainController < ApplicationController
+  include SpotifyHelper
+
   def index
-    @playlist = RSpotify::Playlist.find('iancmooney', '62pAWODrfGVlgSqnHKlTdr')
+    if spotify_user
+      @playlist = spotify_user.playlists.first
+    end
   end
 end
