@@ -3,7 +3,13 @@ class MainController < ApplicationController
 
   def index
     if spotify_user
-      @playlist = spotify_user.playlists.first
+      @track_answer = get_random_track
+      @track_options = 4.times.collect { get_random_track }
     end
+  end
+
+  private
+  def get_random_track
+    spotify_user.playlists.sample.tracks.sample
   end
 end
