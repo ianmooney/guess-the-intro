@@ -1,3 +1,9 @@
-== Guess the intro
+Guess the intro
+---------------
 
 Guess the intro game using Spotify Web API.
+
+Environment variables can be set by creating `config/env.yml`, e.g.
+
+SPOTIFY_CLIENT_ID: ***************
+SPOTIFY_CLIENT_SECRET: ***************
