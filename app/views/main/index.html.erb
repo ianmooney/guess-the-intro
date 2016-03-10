@@ -1,21 +1,23 @@
-<% content_for :javascript do %>
-  <%= javascript_tag do %>
-    $(document).ready(function() {
-      Tracks.currentTrackID = "<%= @track_answer.id %>";
-    });
-  <% end %>
-<% end %>
-
-<div class="container">
-  <% if spotify_user.nil? %>
+<% if spotify_user.nil? %>
+  <div class="container">
     <div class="row">
-      <div class="col-sm-4 col-offset-sm-8 center">
+      <div class="col-sm-4 col-offset-sm-8 text-center">
         <a class="btn btn-lg btn-success" href="/auth/spotify" role="button">
           Sign in with Spotify
         </a>
       </div>
     </div>
-  <% else %>
+  </div>
+<% else %>
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      $(document).ready(function() {
+        Tracks.currentTrackID = "<%= @track_answer.id %>";
+      });
+    <% end %>
+  <% end %>
+
+  <div class="container">
     <div class="row">
       <div class="col-sm-4 col-offset-sm-8 text-center">
         <a class="btn btn-lg btn-success" href="#" role="button" data-behaviour="play-track" data-track-id="<%= @track_answer.id %>">
@@ -23,6 +25,7 @@
         </a>
       </div>
     </div>
+
     <div class="row">
       <div class="col-sm-4 col-offset-sm-8">
         <ul class="list-unstyled tracks">
@@ -34,7 +37,7 @@
         </ul>
       </div>
     </div>
-  <% end %>
-</div>
+  </div>
 
-<%= render('correct_modal') %>
+  <%= render('correct_modal') %>
+<% end %>
