@@ -1,17 +1,6 @@
 window.Tracks = {
   currentTrackID: null,
   player: null,
-  clickPlayButton: function(trackID) {
-    console.log(trackID);
-
-    // $(this).attr('data-behaviour', 'pause-track')
-    //   .removeClass('btn-success')
-    //   .addClass('btn-danger')
-    //   .html('Pause track');
-
-    // var trackID = $(element).data('track-id');
-    Tracks.playTrack(trackID);
-  },
   init: function() {
     $(document).on('click', 'a[data-behaviour="play-track"]', function() {
       $(this).attr('data-behaviour', 'pause-track')
@@ -19,8 +8,8 @@ window.Tracks = {
         .addClass('btn-danger')
         .html('Pause track');
 
-      // var trackID = $(this).data('track-id');
-      // Tracks.playTrack(trackID);
+      var trackID = $(this).data('track-id');
+      Tracks.playTrack(trackID);
     });
 
     $(document).on('click', 'a[data-behaviour="pause-track"]', function() {
