@@ -1,39 +1,48 @@
 window.Tracks = {
   currentTrackID: null,
   player: null,
+  clickPlayButton: function(trackID) {
+    console.log(trackID);
+
+    // $(this).attr('data-behaviour', 'pause-track')
+    //   .removeClass('btn-success')
+    //   .addClass('btn-danger')
+    //   .html('Pause track');
+
+    // var trackID = $(element).data('track-id');
+    Tracks.playTrack(trackID);
+  },
   init: function() {
-    $.each(['click', 'tap'], function(index, eventType) {
-      $(document).on(eventType, 'a[data-behaviour="play-track"]', function() {
-        $(this).attr('data-behaviour', 'pause-track')
-          .removeClass('btn-success')
-          .addClass('btn-danger')
-          .html('Pause track');
+    $(document).on('click', 'a[data-behaviour="play-track"]', function() {
+      $(this).attr('data-behaviour', 'pause-track')
+        .removeClass('btn-success')
+        .addClass('btn-danger')
+        .html('Pause track');
 
-        var trackID = $(this).data('track-id');
-        Tracks.playTrack(trackID);
-      });
+      // var trackID = $(this).data('track-id');
+      // Tracks.playTrack(trackID);
+    });
 
-      $(document).on(eventType, 'a[data-behaviour="pause-track"]', function() {
-        $(this).attr('data-behaviour', 'play-track')
-          .removeClass('btn-danger')
-          .addClass('btn-success')
-          .html('Play track');
+    $(document).on('click', 'a[data-behaviour="pause-track"]', function() {
+      $(this).attr('data-behaviour', 'play-track')
+        .removeClass('btn-danger')
+        .addClass('btn-success')
+        .html('Play track');
 
-        Tracks.player.pause();
-      });
+      Tracks.player.pause();
+    });
 
-      $(document).on(eventType, 'a[data-behaviour="guess-track"]', function() {
-        var trackID = $(this).data('track-id');
+    $(document).on('click', 'a[data-behaviour="guess-track"]', function() {
+      var trackID = $(this).data('track-id');
 
-        $(this).addClass('disabled').prop('disabled', true);
+      $(this).addClass('disabled').prop('disabled', true);
 
-        if (Tracks.currentTrackID == trackID) {
-          $(this).addClass('btn-primary');
-          $('#correctModal').modal();
-        } else {
-          $(this).addClass('btn-danger');
-        }
-      });
+      if (Tracks.currentTrackID == trackID) {
+        $(this).addClass('btn-primary');
+        $('#correctModal').modal();
+      } else {
+        $(this).addClass('btn-danger');
+      }
     });
   },
   playTrack: function(trackID) {
