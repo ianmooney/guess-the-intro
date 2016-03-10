@@ -1,0 +1,40 @@
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+      Tracks.currentTrackID = "<%= @track_answer.id %>";
+    });
+  <% end %>
+<% end %>
+
+<div class="container">
+  <% if spotify_user.nil? %>
+    <div class="row">
+      <div class="col-sm-4 col-offset-sm-8 center">
+        <a class="btn btn-lg btn-success" href="/auth/spotify" role="button">
+          Sign in with Spotify
+        </a>
+      </div>
+    </div>
+  <% else %>
+    <div class="row">
+      <div class="col-sm-4 col-offset-sm-8 text-center">
+        <a class="btn btn-lg btn-success" href="#" role="button" data-behaviour="play-track" data-track-id="<%= @track_answer.id %>">
+          Play song
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-offset-sm-8">
+        <ul class="list-unstyled tracks">
+          <% (@track_options << @track_answer).shuffle.each do |track| %>
+            <li>
+              <a class="btn btn-lg btn-default" data-behaviour="guess-track" href='#' data-track-id="<%= track.id %>"><%= track.name %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= render('correct_modal') %>

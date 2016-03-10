@@ -2,25 +2,39 @@ window.Tracks = {
   currentTrackID: null,
   player: new Audio(),
   init: function() {
-    $('a.play-track').click(function() {
-      var trackID = $(this).data('track-id');
+    $(document).on('click', 'a[data-behaviour="play-track"]', function() {
+      $(this).attr('data-behaviour', 'pause-track')
+        .removeClass('btn-success')
+        .addClass('btn-danger')
+        .html('Pause track');
 
+      var trackID = $(this).data('track-id');
       Tracks.playTrack(trackID);
     });
 
-    $('a.guess-track').click(function() {
+    $(document).on('click', 'a[data-behaviour="pause-track"]', function() {
+      $(this).attr('data-behaviour', 'play-track')
+        .removeClass('btn-danger')
+        .addClass('btn-success')
+        .html('Play track');
+
+      Tracks.player.pause();
+    });
+
+    $(document).on('click', 'a[data-behaviour="guess-track"]', function() {
       var trackID = $(this).data('track-id');
 
+      $(this).addClass('disabled').prop('disabled', true);
+
       if (Tracks.currentTrackID == trackID) {
-        alert('Correct!');
+        $(this).addClass('btn-primary');
+        $('#correctModal').modal();
       } else {
-        alert('Wrong, try again.');
+        $(this).addClass('btn-danger');
       }
     });
   },
   playTrack: function(trackID) {
-    Tracks.currentTrackID = trackID;
-    
     $.get('https://api.spotify.com/v1/tracks/' + trackID, function(track) {
       if (!Tracks.player.paused && Tracks.player.src == track.preview_url) {
         Tracks.player.pause();

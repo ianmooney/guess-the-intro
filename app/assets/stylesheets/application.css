@@ -11,5 +11,19 @@
  * file per style scope.
  *
  *= require_tree .
- *= require_self
  */
+
+body {
+  padding-top: 20px;
+}
+
+ul.tracks {
+  margin-top: 20px
+}
+
+ul.tracks a {
+  width: 100%;
+  margin: 10px 0;white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

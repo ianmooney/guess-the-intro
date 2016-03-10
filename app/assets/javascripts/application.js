@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require tracks
 
 $(document).ready(function() {
   Tracks.init();
