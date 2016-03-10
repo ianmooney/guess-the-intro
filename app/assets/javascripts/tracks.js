@@ -1,6 +1,6 @@
 window.Tracks = {
   currentTrackID: null,
-  player: new Audio(),
+  player: null,
   init: function() {
     $(document).on('click', 'a[data-behaviour="play-track"]', function() {
       $(this).attr('data-behaviour', 'pause-track')
@@ -35,6 +35,10 @@ window.Tracks = {
     });
   },
   playTrack: function(trackID) {
+    if (Tracks.player == undefined) {
+      Tracks.player = new Audio();
+    }
+    
     $.get('https://api.spotify.com/v1/tracks/' + trackID, function(track) {
       if (!Tracks.player.paused && Tracks.player.src == track.preview_url) {
         Tracks.player.pause();
